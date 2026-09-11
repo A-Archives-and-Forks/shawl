@@ -44,10 +44,10 @@ fn prepare_logging() -> Result<(), Box<dyn std::error::Error>> {
                 "{} [{}] {}",
                 now.now().format("%Y-%m-%d %H:%M:%S"),
                 record.level(),
-                &record.args()
+                record.args()
             )
         })
-        .format_for_stderr(|w, _now, record| write!(w, "[{}] {}", record.level(), &record.args()))
+        .format_for_stderr(|w, _now, record| write!(w, "[{}] {}", record.level(), record.args()))
         .start()?;
 
     Ok(())

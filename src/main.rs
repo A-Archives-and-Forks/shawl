@@ -60,10 +60,10 @@ fn prepare_logging(
                 "{} [{}] {}",
                 now.now().format("%Y-%m-%d %H:%M:%S"),
                 record.level(),
-                &record.args()
+                record.args()
             )
         })
-        .format_for_stderr(|w, _now, record| write!(w, "[{}] {}", record.level(), &record.args()));
+        .format_for_stderr(|w, _now, record| write!(w, "[{}] {}", record.level(), record.args()));
 
     if console {
         logger = logger.duplicate_to_stderr(flexi_logger::Duplicate::Info);
@@ -84,7 +84,7 @@ fn prepare_logging(
                     flexi_logger::Naming::Timestamps,
                     flexi_logger::Cleanup::KeepLogFiles(retention),
                 )
-                .format(|w, _now, record| write!(w, "{}", &record.args()))
+                .format(|w, _now, record| write!(w, "{}", record.args()))
                 .try_build()?,
             ),
         );
